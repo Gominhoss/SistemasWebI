@@ -3,9 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RoomController;
 
 Route::get(uri: '/user', action: function (Request $request) {
     return $request->user();
 })->middleware(middleware: 'auth:sanctum');
-Route::get(uri: '/reservas', action: [ReservationController::class, 'index']);
-Route::post(uri: '/reservas', action: [ReservationController::class, 'store']);
+
+// O apiResource cria todas as rotas de CRUD automaticamente para as Controllers
+Route::apiResource(name: 'reservas', controller: ReservationController::class);
+Route::apiResource(name: 'salas', controller: RoomController::class);
