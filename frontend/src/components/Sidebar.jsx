@@ -14,6 +14,7 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('user');
+        localStorage.removeItem('access_token');
         navigate('/');
     };
 
@@ -57,10 +58,10 @@ const Sidebar = () => {
             <div className="mt-auto p-4 border-t border-slate-700 bg-slate-950/50">
                 <div className="flex items-center space-x-3 mb-4 px-2">
                     <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center font-bold text-xs uppercase">
-                        {user.nome[0]}
+                        {user.name ? user.name[0] : 'U'}
                     </div>
                     <div className="overflow-hidden">
-                        <p className="text-xs font-semibold text-white truncate">{user.nome}</p>
+                        <p className="text-xs font-semibold text-white truncate">{user.name}</p>
                         <p className="text-[10px] text-slate-500 capitalize">{user.role}</p>
                     </div>
                 </div>

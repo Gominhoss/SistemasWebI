@@ -13,8 +13,29 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'Vitor (Admin Mestre)',
             'email' => 'admin@icea.br',
-            'password' => Hash::make(value: 'senha123'),
+            'password' => 'senha123',
             'role' => 'admin',
+        ]);
+
+        \App\Models\Room::create([
+            'nome' => 'Auditório Principal',
+            'capacidade' => 100,
+            'localizacao' => 'Bloco A',
+            'recursos' => 'Projetor, Som, Ar Condicionado',
+        ]);
+
+        \App\Models\Room::create([
+            'nome' => 'Laboratório de Informática 1',
+            'capacidade' => 30,
+            'localizacao' => 'Bloco B',
+            'recursos' => '30 PCs, Ar Condicionado',
+        ]);
+
+        \App\Models\Room::create([
+            'nome' => 'Sala de Reuniões',
+            'capacidade' => 12,
+            'localizacao' => 'Bloco C',
+            'recursos' => 'TV 55", Quadro Branco',
         ]);
     }
 }
