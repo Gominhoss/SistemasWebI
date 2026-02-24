@@ -1,27 +1,33 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types'; // Importação obrigatória para validação
 import Login from './pages/Login';
-import Layout from './components/Layout';
 import Calendario from './pages/Calendario';
-import Salas from './pages/Salas';
+
+// Componente para proteger rotas: se não houver token, manda para o Login
+const RotaProtegida = ({ children }) => {
+  const token = localStorage.getItem('access_token');
+  return token ? children : <Navigate to="/" />;
+};
+
+// Resolução do SonarQube (S6774): Validando rigorosamente a prop 'children'
+RotaProtegida.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* Rota de Login */}
         <Route path="/" element={<Login />} />
-
-        {/* Rotas Protegidas por Layout */}
-        <Route element={<Layout />}>
-          <Route path="/calendario" element={<Calendario />} />
-          <Route path="/salas" element={<Salas />} />
-        </Route>
-
-        {/* Fallback para Login */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        
+        <Route path="/calendario" element={
+          <RotaProtegida>
+            <Calendario />
+          </RotaProtegida>
+        } />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
